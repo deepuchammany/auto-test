@@ -19,9 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\TodosController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('todo/create', [App\Http\Controllers\TodosController::class, 'create']);
-    // Route::get('todo/create', [MemberController::class, 'details']);
+    Route::post('todo/store', [App\Http\Controllers\TodosController::class, 'store']);
+    Route::get('todo/delete/{id}', [App\Http\Controllers\TodosController::class, 'destroy']);
 });

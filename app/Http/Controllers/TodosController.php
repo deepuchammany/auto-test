@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todos;
-use App\Http\Requests\StoreTodosRequest;
-use App\Http\Requests\UpdateTodosRequest;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodosController extends Controller
 {
@@ -16,8 +16,8 @@ class TodosController extends Controller
     public function index()
     {
         //
-        $todos=Todos::get();
-        return view('todos', ['dashboard' => $todos]);
+        $todos=Todos::where('user_id',Auth::user()->id)->get();
+        return view('home', ['todos' => $todos]);
     }
 
     /**
@@ -37,9 +37,14 @@ class TodosController extends Controller
      * @param  \App\Http\Requests\StoreTodosRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTodosRequest $request)
+    public function store(Request $request)
     {
         //
+        $todo = new Todos();
+        $todo->user_id=$request->user_id;
+        $todo->description=$request->description;
+        $todo->save();
+        return redirect('/home')->with('status','Todo created successfully!');
     }
 
     /**
@@ -71,7 +76,7 @@ class TodosController extends Controller
      * @param  \App\Models\Todos  $todos
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTodosRequest $request, Todos $todos)
+    public function update(Request $request, Todos $todos)
     {
         //
     }
@@ -82,8 +87,11 @@ class TodosController extends Controller
      * @param  \App\Models\Todos  $todos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Todos $todos)
+    public function destroy($id)
     {
         //
+        $todo = Todos::find($id);
+        $todo->delete();
+        return redirect('/home')->with('status','Todo deleted successfully!');
     }
 }
