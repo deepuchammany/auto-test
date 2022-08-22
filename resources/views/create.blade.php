@@ -23,6 +23,7 @@
         </div>
         <div class="card-footer">
           <button type="button" onclick="checkInput()" class="btn btn-success">Submit</button>
+          <button type="button" onclick="history.back();" class="btn btn-danger">Cancel</button>
         </div>
       </div>
     </div>

@@ -25,4 +25,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('todo/store', [App\Http\Controllers\TodosController::class, 'store']);
     Route::get('todo/delete/{id}', [App\Http\Controllers\TodosController::class, 'destroy']);
     Route::get('todo/complete/{id}', [App\Http\Controllers\TodosController::class, 'complete']);
+    Route::get('todo/{id}', [App\Http\Controllers\TodosController::class, 'show']);
 });

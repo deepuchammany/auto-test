@@ -53,9 +53,11 @@ class TodosController extends Controller
      * @param  \App\Models\Todos  $todos
      * @return \Illuminate\Http\Response
      */
-    public function show(Todos $todos)
+    public function show($id)
     {
         //
+        $todo = Todos::where('id',$id)->select('id','user_id','description')->first();
+        return $todo;
     }
 
     /**

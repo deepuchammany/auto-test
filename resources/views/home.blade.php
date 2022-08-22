@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -53,6 +53,7 @@
                                     <button class="btn btn-success" onclick="complete_todo('{{ $todo->id }}')">Complete</button>
                                     @endif
                                 </th>
+                                <th><a class="btn btn-info" href="/todo/{{ $todo->id }}">View JSON</a></th>
                                 <th><button class="btn btn-danger" onclick="delete_todo('{{ $todo->id }}')">Delete</button></th>
                             </tr>
                             @endforeach
