@@ -94,4 +94,12 @@ class TodosController extends Controller
         $todo->delete();
         return redirect('/home')->with('status','Todo deleted successfully!');
     }
+    public function complete($id)
+    {
+        //
+        $todo = Todos::find($id);
+        $todo->completed=1;
+        $todo->save();
+        return redirect('/home')->with('status','Todo completed successfully!');
+    }
 }
