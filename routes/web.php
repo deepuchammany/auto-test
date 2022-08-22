@@ -14,14 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\TodosController::class, 'index'])->name('home');
-
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\TodosController::class, 'index'])->name('home');
     Route::get('todo/create', [App\Http\Controllers\TodosController::class, 'create']);
     Route::post('todo/store', [App\Http\Controllers\TodosController::class, 'store']);
     Route::get('todo/delete/{id}', [App\Http\Controllers\TodosController::class, 'destroy']);
